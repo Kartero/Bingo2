@@ -1,18 +1,24 @@
 ##!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from bingo import Bingo
+from colorama import Style
 
 class Player:
 
-	def __init__(self, name):
+	def __init__(self, name, color=None):
 		self.bingo = Bingo()
 		self.name = name
+		self.color = color
 
 	def draw(self, drawn=[]):
 		self.bingo.draw_board(drawn)
 
 	def win_print(self):
-		print ("Player {0:s} wins".format(self.name))
+		if self.bingo.color == None:
+			print ("Player {0:s} wins".format(self.name))
+		else:
+			print (self.bingo.color + "Player {0:s} wins".format(self.name))
+			#print (Style.RESET_ALL, end="")
 
 	def win_chances(self, drawn):
 		if len(drawn) < 10:

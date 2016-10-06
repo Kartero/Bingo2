@@ -8,6 +8,15 @@ class Bingo:
 
 	def __init__(self):
 		self.board = self.create_board()
+		self.color = None
+
+	def set_color(self, color):
+		if color == "blue":
+			self.color = Fore.BLUE
+		elif color == "green":
+			self.color = Fore.GREEN
+		elif color == "yellow":
+			self.color = Fore.YELLOW
 
 	def create_board(self):
 		board = []
@@ -27,17 +36,27 @@ class Bingo:
 		if (not self.board):
 			print ("No board created")
 			return
-		#init() #Don't know why this ain't working?
+		# If color is not set, use default
+		# else use set color
+		if self.color == None:
+			for i in self.board:
+				for j in i:
+					if j in drawn:
+						print(Fore.RED + "{0:3d}".format(j), end="")
+						print (Fore.WHITE, end="")
+					else:
+						print (Fore.WHITE + "{0:3d}".format(j), end="")
+				print ()
+		else:
+			for i in self.board:
+				for j in i:
+					if j in drawn:
+						print(Fore.RED + "{0:3d}".format(j), end="")
+						print (self.color, end="")
+					else:
+						print (self.color + "{0:3d}".format(j), end="")
+				print ()
 
-		for i in self.board:
-			for j in i:
-				if j in drawn:
-					# first print outputs red number amongst default white and second print just reset color to default
-					# it works though I don't know why
-					print(Fore.RED + "{0:3d}".format(j), end="")
-					print (Style.RESET_ALL, end="")
-				else:
-					print ("{0:3d}".format(j), end="")
-			print ()
+		print ()
 
 
